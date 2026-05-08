@@ -3,6 +3,7 @@
 import numpy as np
 import pandas as pd
 from typing import Tuple, Optional
+from scipy.signal import savgol_filter
 
 
 def remove_outliers(data: pd.Series, method: str = 'iqr', threshold: float = 1.5) -> pd.Series:
@@ -33,6 +34,27 @@ def remove_outliers(data: pd.Series, method: str = 'iqr', threshold: float = 1.5
         raise ValueError(f"Unknown method: {method}")
     
     return data_clean
+
+
+def smooth_signal(data: np.ndarray, window_length: int = 11, polyorder: int = 3) -> np.ndarray:
+    """
+    Apply Savitzky-Golay filter to smooth the signal.
+    
+    Args:
+        data: Input signal array
+        window_length: Length of the filter window (must be odd)
+        polyorder: Order of the polynomial to fit
+        
+    Returns:
+        Smoothed signal
+    """
+    # Ensure window_length is odd and smaller than data length
+    if window_length >= len(data):
+        window_length = len(data) if len(data) % 2 != 0 else len(data) - 1
+    if window_length < 3:
+        return data
+        
+    return savgol_filter(data, window_length, polyorder)
 
 
 def handle_missing_values(data: pd.Series, method: str = 'interpolate') -> pd.Series:

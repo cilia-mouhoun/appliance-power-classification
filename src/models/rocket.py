@@ -1,7 +1,7 @@
 """ROCKET model for time-series classification."""
 
 import numpy as np
-from sklearn.linear_model import RidgeClassifier
+from sklearn.linear_model import LogisticRegression
 from typing import Dict, Any
 
 
@@ -24,7 +24,7 @@ class RocketModel:
         self.kernel_size = kernel_size
         self.random_state = random_state
         self.kernels = None
-        self.classifier = RidgeClassifier(random_state=random_state)
+        self.classifier = LogisticRegression(random_state=random_state, max_iter=1000)
     
     def _generate_kernels(self, n_timepoints: int):
         """Generate random convolutional kernels."""
@@ -53,6 +53,11 @@ class RocketModel:
         """Make predictions."""
         X_transformed = np.array([self._apply_kernels(x) for x in X])
         return self.classifier.predict(X_transformed)
+    
+    def predict_proba(self, X: np.ndarray) -> np.ndarray:
+        """Predict probabilities."""
+        X_transformed = np.array([self._apply_kernels(x) for x in X])
+        return self.classifier.predict_proba(X_transformed)
     
     def score(self, X: np.ndarray, y: np.ndarray) -> float:
         """Calculate accuracy score."""

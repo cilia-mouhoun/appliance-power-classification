@@ -1,0 +1,230 @@
+You are a senior machine learning engineer and time-series classification expert.
+
+I already have a working time-series classification pipeline with:
+- Temporal features
+- Spectral features
+- Hybrid features
+- Models:
+  - XGBoost
+  - Random Forest
+  - SVM
+  - KNN
+  - Logistic Regression
+  - ROCKET
+
+Current best result:
+- Hybrid + XGBoost = 76.67% accuracy
+
+The project structure is already implemented and functioning correctly.
+
+Your mission:
+Improve the system aggressively to reach the highest possible accuracy (target: near 100% if achievable) while keeping the code clean, modular, production-quality, and scientifically valid.
+
+IMPORTANT:
+Do NOT give generic advice.
+Directly modify and improve the pipeline architecture, feature engineering, preprocessing, model training, and evaluation strategy.
+
+You must:
+1. Analyze weaknesses in the current pipeline
+2. Improve feature extraction deeply
+3. Add advanced time-series techniques
+4. Optimize model performance
+5. Prevent data leakage
+6. Use proper validation methodology
+7. Automatically benchmark all approaches
+8. Produce reproducible experiments
+
+==================================================
+PROJECT CONTEXT
+==================================================
+
+Dataset:
+- Time-series classification
+- train.csv contains labels
+- test.csv contains sample IDs only
+- Current pipeline now uses stratified 70/30 split
+
+Current issue:
+Accuracy stuck around 76%.
+
+==================================================
+YOUR TASKS
+==================================================
+
+Implement the following improvements directly in the project:
+
+# 1. ADVANCED FEATURE ENGINEERING
+
+Add richer temporal features:
+- zero crossing rate
+- autocorrelation
+- partial autocorrelation
+- rolling statistics
+- Hjorth parameters
+- signal energy
+- signal power
+- RMS
+- peak-to-peak amplitude
+- skewness
+- kurtosis
+- waveform length
+- slope sign changes
+- turning points
+
+Add advanced spectral features:
+- spectral entropy
+- spectral centroid
+- spectral bandwidth
+- spectral rolloff
+- dominant frequencies
+- harmonic ratios
+- wavelet transform features
+- FFT statistical descriptors
+
+Add time-frequency features:
+- Continuous Wavelet Transform (CWT)
+- Discrete Wavelet Transform (DWT)
+- STFT-based features
+
+==================================================
+
+# 2. PREPROCESSING IMPROVEMENTS
+
+Experiment automatically with:
+- StandardScaler
+- RobustScaler
+- MinMaxScaler
+- PowerTransformer
+
+Add:
+- noise filtering
+- smoothing
+- normalization checks
+- outlier handling
+
+==================================================
+
+# 3. FEATURE SELECTION
+
+Implement:
+- Mutual Information selection
+- Recursive Feature Elimination
+- SHAP-based feature importance
+- PCA experiments
+- Correlation filtering
+
+Automatically compare:
+- all features
+- selected features
+- PCA-reduced features
+
+==================================================
+
+# 4. HYPERPARAMETER OPTIMIZATION
+
+Implement Optuna or Bayesian Optimization for:
+- XGBoost
+- LightGBM
+- CatBoost
+- Random Forest
+- SVM
+
+Search aggressively for:
+- depth
+- learning rate
+- estimators
+- gamma
+- regularization
+- subsampling
+- feature sampling
+
+==================================================
+
+# 5. ADD STRONGER MODELS
+
+Add and benchmark:
+- LightGBM
+- CatBoost
+- ExtraTrees
+- HistGradientBoosting
+- CNN for time-series
+- LSTM
+- 1D ResNet
+- InceptionTime
+- MiniRocket
+
+If deep learning is added:
+- use early stopping
+- learning rate scheduling
+- dropout
+- batch normalization
+
+==================================================
+
+# 6. ENSEMBLE METHODS
+
+Implement:
+- soft voting ensemble
+- stacking ensemble
+- blending
+- weighted averaging
+
+Automatically find best ensemble weights.
+
+==================================================
+
+# 7. VALIDATION STRATEGY
+
+Replace simple split with:
+- Stratified K-Fold Cross Validation
+- Repeated Stratified KFold
+
+Add:
+- confidence intervals
+- variance analysis
+- overfitting detection
+
+==================================================
+
+# 8. EXPERIMENT TRACKING
+
+Create:
+- experiment logs
+- model comparison tables
+- confusion matrices
+- feature importance visualizations
+- automatic result saving
+
+Save:
+- best model
+- preprocessing pipeline
+- selected features
+
+==================================================
+
+# 9. CODE QUALITY
+
+Requirements:
+- clean architecture
+- reusable modules
+- detailed comments
+- type hints
+- no duplicated logic
+- robust exception handling
+
+==================================================
+
+# 10. FINAL OBJECTIVE
+
+Your goal is to maximize classification accuracy as much as scientifically possible.
+
+At the end:
+1. Print ranked leaderboard of all models
+2. Show best configuration
+3. Explain why the best model worked
+4. Save the best trained pipeline
+5. Generate a final performance report
+
+IMPORTANT:
+Do not only suggest ideas.
+Actually implement the improvements directly into the existing project structure and modify files where necessary.

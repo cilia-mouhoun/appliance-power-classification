@@ -1,0 +1,68 @@
+# Temporal Domain Pipeline Configuration
+# Configuration for temporal-only classification
+
+preprocessing:
+  normalization_method: "zscore" # 'zscore' or 'minmax'
+  detrending_method: "linear" # 'linear', 'polynomial', or 'savgol'
+  detrend_polynomial_order: 3
+  window_size: 100
+
+feature_extraction:
+  type: "temporal"
+  features:
+    # Statistical features
+    - "rms"
+    - "variance"
+    - "std_dev"
+    - "skewness"
+    - "kurtosis"
+    - "entropy"
+
+    # Autocorrelation
+    - "autocorr_lag1"
+    - "autocorr_lag5"
+    - "autocorr_lag10"
+
+    # Peak statistics
+    - "peak_value"
+    - "peak_count"
+    - "zero_crossing_rate"
+
+    # Energy-based
+    - "signal_energy"
+    - "mean_energy"
+
+model:
+  type: "random_forest"
+  hyperparameters:
+    n_estimators: 100
+    max_depth: 15
+    min_samples_split: 5
+    min_samples_leaf: 2
+    random_state: 42
+    n_jobs: -1
+    criterion: "gini"
+
+training:
+  test_size: 0.2
+  random_state: 42
+  validation_strategy: "stratified_kfold"
+  n_splits: 5
+
+evaluation:
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1"
+    - "roc_auc"
+
+  include_per_class_analysis: true
+  include_confusion_matrix: true
+  include_classification_report: true
+
+# Notes on Temporal Domain:
+# - Fast computation (no FFT required)
+# - Captures signal dynamics and statistical properties
+# - Effective for appliances with distinct amplitude patterns
+# - May miss frequency-specific characteristics

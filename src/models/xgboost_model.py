@@ -20,7 +20,7 @@ class XGBoostModel:
             random_state: Random seed
         """
         self.params = {
-            'objective': 'multi:softmax',
+            'objective': 'multi:softprob',
             'max_depth': max_depth,
             'learning_rate': learning_rate,
             'random_state': random_state,
@@ -30,6 +30,9 @@ class XGBoostModel:
     
     def fit(self, X: np.ndarray, y: np.ndarray) -> 'XGBoostModel':
         """Fit the XGBoost model."""
+        num_class = len(np.unique(y))
+        self.params['num_class'] = num_class
+        
         dtrain = xgb.DMatrix(X, label=y)
         self.model = xgb.train(
             self.params,
@@ -39,10 +42,15 @@ class XGBoostModel:
         )
         return self
     
+    def predict_proba(self, X: np.ndarray) -> np.ndarray:
+        """Predict probabilities."""
+        dtest = xgb.DMatrix(X)
+        return self.model.predict(dtest)
+        
     def predict(self, X: np.ndarray) -> np.ndarray:
         """Make predictions."""
-        dtest = xgb.DMatrix(X)
-        return self.model.predict(dtest).astype(int)
+        probas = self.predict_proba(X)
+        return np.argmax(probas, axis=1)
     
     def score(self, X: np.ndarray, y: np.ndarray) -> float:
         """Calculate accuracy score."""
